@@ -2,31 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 import json
-import re
-
-def check_url(url):
-    try:
-        # Check if the URL includes a protocol
-        if not url.startswith('http://') and not url.startswith('https://'):
-            url = 'https://' + url
-            
-            
-        # Check if the URL matches the pattern
-        if re.match(r'^https?://(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$', url):
-            #return url
-            pass
-        else:
-            raise ValueError("Invalid URL format. Please enter a valid URL.")
-
-        response = requests.get(url)
-        if response.status_code == 200:
-            #print(Fore.GREEN + f"\nThe URL '{url}' is valid and responding.\n" + Fore.RESET)
-            return url
-        else:
-            raise ConnectionError(f"The URL '{url}' is not responding or invalid url. Status code: {response.status_code}")
-
-    except requests.exceptions.RequestException as e:
-        raise Exception(f"The URL '{url}' is invalid or not responding.")
+import sys
 
 def handler(url):
     try:
@@ -74,20 +50,34 @@ def handler(url):
     except Exception as e:
         raise Exception(str(e))
 
+def colorize(text, color):
+    colors = {
+        "red": "\033[91m",
+        "green": "\033[92m",
+        "blue": "\033[94m",
+        "reset": "\033[0m"
+    }
+    return f"{colors[color]}{text}{colors['reset']}"
+
 def main():
-    text = "\nLinked Pages\n"
-    print(text)
+    
     try:
-        url = str(input("Enter URL: "))
-        valid_url = check_url(url)
-        result = handler(valid_url)
-        #print(result)
-        print("\n{} {}".format("Total internal links found: ", len(result['internal'])))
-        print("\nInternal Links: ")
-        for link in result['internal']:
-            print(link )
+        url = sys.argv[1]
+        print("====================")
+        print(colorize( "  Server Location ", "blue",))
+
+        print("====================\n")
+        result = handler(url)
+        if 'internal' not in result:
+            print(colorize("Error:", 'red'), result['body'])
+        else:
+            
+            print(colorize("\nTotal internal links found:", 'red'), colorize(len(result['internal']), 'green'))
+            print(colorize("\nInternal Links:", 'red'))
+            for link in result['internal']:
+                print(colorize(link, 'green'))
     except Exception as e:
-        print("{} {}".format("\nError: ", e))
+        print(colorize("Error:", 'red'), e)
 
 if __name__ == "__main__":
     main()

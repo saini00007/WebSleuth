@@ -1,35 +1,12 @@
 import requests
 from urllib.parse import urlparse, urljoin
-import re
+import sys
+from colorama import Fore, Style
 
 SECURITY_TXT_PATHS = [
     '/security.txt',
     '/.well-known/security.txt',
 ]
-
-def check_url(url):
-    try:
-        # Check if the URL includes a protocol
-        if not url.startswith('http://') and not url.startswith('https://'):
-            url = 'https://' + url
-        
-        # Check if the URL matches the pattern
-        if re.match(r'^https?://(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$', url):
-            #return url
-            pass
-        else:
-            raise ValueError("Invalid URL format. Please enter a valid URL.")
-
-        response = requests.get(url)
-        if response.status_code == 200:
-            #print(Fore.GREEN + f"\nThe URL '{url}' is valid and responding.\n" + Fore.RESET)
-            return url
-        else:
-            raise ConnectionError(f"The URL '{url}' is not responding or invalid url. Status code: {response.status_code}")
-
-    except requests.exceptions.RequestException as e:
-        raise Exception(f"The URL '{url}' is invalid or not responding.")    
-       
 
 def parse_result(result):
     output = {}
@@ -84,23 +61,29 @@ def fetch_security_txt(base_url, path):
     return None
 
 if __name__ == "__main__":
-    text = "\nSecurity.txt\n"
-    print(text)
+    print("====================\n")
+    print(Fore.BLUE + "  Security Text \n" + Style.RESET_ALL)
+    print("====================\n")
+    
     try:
-        url = input("Enter URL: ")
-        valid_url = check_url(url)
-        result = handler(valid_url)
+        url = sys.argv[1]
+        result = handler(url)
         if result['isPresent']:
-            print("\n{:<20} {:^} {:<10}".format("Security.txt", "-->" + " " * 5, "present"))
-            
+            print("====================\n")
+            print(Fore.BLUE + "  Security Text \n" + Style.RESET_ALL)
+            print("====================\n")
+    
+            print("\n{:<20} {:^} {:<10}".format(Fore.GREEN + "Security.txt", "-->" + " " * 5, "present"))
+            print(Style.RESET_ALL)
             print("{:<20} {:^} {:<10}".format("File Location", ":" + " " * 5, result['foundIn']))
-            
             print("{:<20} {:^} {:<10}".format("PGP Signed", ":" + " " * 5, "Yes" if result['isPgpSigned'] else "No"))
-            
-            #print("Content:")
             for key, value in result['fields'].items():
-                print("{:<20} {:^} {:<10}".format(key, ":" + " " * 5, value))
+              print("{:<20} {:^} ".format(Fore.RED + key, ":" + " " * 5), end="")
+              print(Fore.GREEN + "{}".format(value))
+              print(Style.RESET_ALL)
         else:
-            print("\n{:<20} {:^} ".format("Security.txt", "-->" + " " * 5 + "not present")) 
+            print("\n{:<20} {:^} ".format(Fore.RED + "Security.txt", "-->" + " " * 5 + "not present")) 
+            print(Style.RESET_ALL)
+
     except Exception as e:
         print("{} {}".format("\nError: ", e))

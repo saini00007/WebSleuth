@@ -2,31 +2,13 @@ import socket
 import ipaddress
 from urllib.parse import urlparse
 from typing import List, Dict
-import re
-import requests
+import sys
 
-def check_url(url):
-    try:
-        # Check if the URL includes a protocol
-        if not url.startswith('http://') and not url.startswith('https://'):
-            url = 'https://' + url
-            
-        # Check if the URL matches the pattern
-        if re.match(r'^https?://(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$', url):
-            #return url
-            pass
-        else:
-            raise ValueError("Invalid URL format. Please enter a valid URL.")
-
-        response = requests.get(url)
-        if response.status_code == 200:
-            #print(Fore.GREEN + f"\nThe URL '{url}' is valid and responding.\n" + Fore.RESET)
-            return url
-        else:
-            raise ConnectionError(f"The URL '{url}' is not responding or invalid url. Status code: {response.status_code}")
-
-    except requests.exceptions.RequestException as e:
-        raise Exception(f"The URL '{url}' is invalid or not responding.")
+# ANSI escape codes for colorization
+GREEN = "\033[92m"
+RED = "\033[91m"
+BLUE = "\033[93m"
+RESET = "\033[0m"
 
 DNS_SERVERS = [
     {'name': 'AdGuard', 'ip': '176.103.130.130'},
@@ -81,7 +63,8 @@ def check_domain_against_dns_servers(domain: str) -> List[Dict[str, str]]:
     results = []
     for server in DNS_SERVERS:
         is_blocked = is_domain_blocked(domain, server['ip'])
-        results.append({'server': server['name'], 'isBlocked': 'YES' if is_blocked else 'NO'})
+        result_text = f"{GREEN}YES{RESET}" if is_blocked else f"{RED}NO{RESET}"
+        results.append({'server': server['name'], 'isBlocked': result_text})
     return results
 
 
@@ -92,15 +75,18 @@ def handler(url: str) -> Dict[str, List[Dict[str, str]]]:
 
 
 if __name__ == "__main__":
-    text = "\nBlock Detection\n"
-    print(text)
+    
+    
     try:
-        url = input("Enter URL: ").strip()
-        valid_url = check_url(url)
-        result = handler(valid_url)
-        print("\nDNS Servers                 Blocked")
+        url = sys.argv[1]
+        
+        result = handler(url)
+        print("====================")
+        print(BLUE + "Block Detection " + RESET)
+        print("====================\n")
+        print("\nDNS Servers              Blocked")
         print("-----------------------------------")
         for res in result['blocklists']:
-            print(f"{res['server']:25} {res['isBlocked']:>7}")
+            print(BLUE + f"{res['server']:25} {res['isBlocked']:>7}")
     except Exception as e:
-        print("{} {}".format("\nError: ", e))
+        print(f"\n{RED}Error: {e}{RESET}")

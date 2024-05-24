@@ -1,9 +1,9 @@
 import requests
+import sys
+from colorama import Fore, Style
 
 def get_http_headers(url):
-    # Automatically prepend 'https://' if the URL doesn't start with 'http://' or 'https://'
-    if not url.startswith(('http://', 'https://')):
-        url = 'https://' + url
+    
     try:
         response = requests.head(url, allow_redirects=True)
         response.raise_for_status()
@@ -25,13 +25,15 @@ def identify_web_technologies(http_headers):
     return technologies
 
 if __name__ == "__main__":
-    url = input("Enter Url :")  # Replace with the desired URL
+    url = sys.argv[1] 
 
     http_headers = get_http_headers(url)
     if http_headers:
         web_technologies = identify_web_technologies(http_headers)
-        print("\nWeb Technologies:")
+        print("====================\n")
+        print(Fore.BLUE + "  Web Technologies  \n" + Style.RESET_ALL)
+        print("====================\n")
         for key, value in web_technologies.items():
-            print(f"{key}: {value}")
+            print(Fore.RED + f"{key}:" + Fore.GREEN + f" {value}" + Style.RESET_ALL)
     else:
         print("Unable to retrieve HTTP headers.")

@@ -1,35 +1,12 @@
 import requests
-import re
-
-def check_url(url):
-    try:
-        # Check if the URL includes a protocol
-        if not url.startswith('http://') and not url.startswith('https://'):
-            url = 'https://' + url
-            
-            
-        # Check if the URL matches the pattern
-        if re.match(r'^https?://(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$', url):
-            #return url
-            pass
-        else:
-            raise ValueError("Invalid URL format. Please enter a valid URL.")
-
-        response = requests.get(url)
-        if response.status_code == 200:
-            return url
-        else:
-            raise ConnectionError(f"The URL '{url}' is not responding or invalid url. Status code: {response.status_code}")
-
-    except requests.exceptions.RequestException as e:
-        raise Exception(f"The URL '{url}' is invalid or not responding.")
+import sys
+from colorama import Fore, Style
 
 def has_waf(waf):
     return {
         'hasWaf': True,
         'waf': waf,
     }
-
 
 def check_waf(url):
     full_url = url if url.startswith('http') else f'http://{url}'
@@ -86,20 +63,24 @@ def check_waf(url):
     except Exception as e:
         return {'statusCode': 500, 'body': {'error': str(e)}}
 
+def print_colored_result(result):
+    print ( "====================")
+    print(Fore.BLUE + "  Firewall " + Style.RESET_ALL)
+    print( "====================")
+    if result['hasWaf']:
+        print(f"\n{Fore.RED}Firewall{Style.RESET_ALL} : {Fore.GREEN}YES{Style.RESET_ALL}")
+        print(f"{Fore.RED}WAF{Style.RESET_ALL}      : {Fore.GREEN}{result['waf']}{Style.RESET_ALL}")
+    else:
+        print(f"\n{Fore.RED}Firewall{Style.RESET_ALL} : {Fore.GREEN}NO{Style.RESET_ALL}")
+    if 'error' in result:
+        print(f"Error: {result['error']}")
+
 if __name__ == "__main__":
-    text = "\nFirewall (WAB-Web Application Firewall)\n" 
-    print(text)
+   
+
     try:  
-        url = input("Enter the URL to check WAF: ")
-        valid_url = check_url(url)
-        result = check_waf(valid_url)
-        if result['hasWaf']:
-            print("\n{:<10} {:^} {:>}".format("Firewall", ":" + " " * 5, "YES"))
-            print("{:<10} {:^} {:>}".format("WAF", ":" + " " * 5, result['waf']))
-        else:
-            print("\n{:<10} {:^} {:>}".format("Firewall", ":" + " " * 5,"NO"))
-        #print(result)
-        if 'error' in result:
-            print("Error:", result['error'])
+        url = sys.argv[1]
+        result = check_waf(url)
+        print_colored_result(result)
     except Exception as e:
-        print("{} {}".format("\nError: ", e))
+        print(f"{Fore.RED}\nError:{Style.RESET_ALL} {e}")
