@@ -9,7 +9,7 @@ def get_http_headers(url):
         response.raise_for_status()
         return response.headers
     except requests.RequestException as e:
-        print(f"Error accessing the webpage: {e}")
+        #print(f"Error accessing the webpage: {e}")
         return None
 
 def identify_web_technologies(http_headers):
@@ -37,5 +37,8 @@ if __name__ == "__main__":
             print(Fore.RED + f"{key}:" + Fore.GREEN + f" {value}" + Style.RESET_ALL)
               
     else:
+        print("====================")
+        print(Fore.BLUE + "  Web Technologies  " + Style.RESET_ALL)
+        print("====================\n")
         print("Unable to retrieve HTTP headers.")
 print("\n")  
