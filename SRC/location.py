@@ -25,27 +25,31 @@ def colorize(text, color):
     }
     return f"{colors[color]}{text}{colors['reset']}"
 
-def print_location_details(location):
+def print_location_details(loc):
+    if not loc:
+        print("No Data Found....")
+    else:
+        keys = [
+            'IP Address', 'City', 'Region', 'Country Code', 'Country', 'Continent Code',
+            'Postal Code', 'Latitude', 'Longitude', 'Timezone', 'UTC Offset', 'Country Calling Code',
+            'Currency', 'Currency Name', 'Languages', 'ASN', 'Organization', 'Hostname'
+        ]
+        print("====================")
+        print(colorize("  Server Location ", "blue"))
+        print("====================\n")
+        for key in keys:
+            value = loc.get(key.lower().replace(' ', '_'), 'N/A')
+            print(colorize(key + ':', 'red'), colorize(value, 'green'))
+
+
     
-    keys = [
-        'IP Address', 'City', 'Region', 'Country Code', 'Country', 'Continent Code',
-        'Postal Code', 'Latitude', 'Longitude', 'Timezone', 'UTC Offset', 'Country Calling Code',
-        'Currency', 'Currency Name', 'Languages', 'ASN', 'Organization', 'Hostname'
-    ]
-    print("====================")
-    print(colorize( "  Server Location ", "blue",))
-
-    print("====================\n")
-    print_location_details(location)
-    for key in keys:
-        value = location.get(key.lower().replace(' ', '_'), 'N/A')
-        print(colorize(key + ':', 'red'), colorize(value, 'green'))
-
 async def main():
     url = sys.argv[1]
     domain = await get_domain_from_url(url)
     ip = socket.gethostbyname(domain)
-    location = await get_ip_location(ip)
+    loc = await get_ip_location(ip)
+    print_location_details(loc)
+    
     
 
 if __name__ == "__main__":

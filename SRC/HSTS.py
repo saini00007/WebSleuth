@@ -1,13 +1,12 @@
 import aiohttp
 import sys
 import asyncio
-import re
 
 def colorize(text, color):
     colors = {
-        "red": "\033[91m",
-        "green": "\033[92m",
-        "blue": "\033[93m",
+        "red": "\033[31m",
+        "green": "\033[32m",
+        "blue": "\033[34m",
         "reset": "\033[0m"
     }
     return f"{colors[color]}{text}{colors['reset']}"
@@ -47,7 +46,7 @@ async def check_hsts_compatibility(url):
 
 async def print_colored_result(result):
     print("====================")
-    print(colorize( "  HTTP Security", "blue",))
+    print(colorize( " HSTS Info", "blue",))
 
     print("====================\n")
     if result['compatible']:
@@ -60,7 +59,7 @@ async def print_colored_result(result):
         print(colorize("\nDetails : ", 'green'))
         for key, value in details.items():
             print(colorize(f"  - {key:<20}", 'green'), colorize(":", 'green'), colorize(str(value), 'green'))
-                
+    print("\n")            
 if __name__ == "__main__":
    
 

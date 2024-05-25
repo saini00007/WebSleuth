@@ -5,9 +5,9 @@ from typing import List, Dict
 import sys
 
 # ANSI escape codes for colorization
-GREEN = "\033[92m"
-RED = "\033[91m"
-BLUE = "\033[93m"
+GREEN = "\033[32m"
+RED = "\033[31m"
+BLUE = "\033[34m"
 RESET = "\033[0m"
 
 DNS_SERVERS = [
@@ -63,7 +63,7 @@ def check_domain_against_dns_servers(domain: str) -> List[Dict[str, str]]:
     results = []
     for server in DNS_SERVERS:
         is_blocked = is_domain_blocked(domain, server['ip'])
-        result_text = f"{GREEN}YES{RESET}" if is_blocked else f"{RED}NO{RESET}"
+        result_text = f"{GREEN}YES{RESET}" if is_blocked else f"{BLUE}NO{RESET}"
         results.append({'server': server['name'], 'isBlocked': result_text})
     return results
 
@@ -87,6 +87,7 @@ if __name__ == "__main__":
         print("\nDNS Servers              Blocked")
         print("-----------------------------------")
         for res in result['blocklists']:
-            print(BLUE + f"{res['server']:25} {res['isBlocked']:>7}")
+            print(RED + f"{res['server']:25} {res['isBlocked']:>7}")
+        print("\n")
     except Exception as e:
         print(f"\n{RED}Error: {e}{RESET}")

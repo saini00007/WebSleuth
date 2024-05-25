@@ -73,6 +73,8 @@ async def main():
         
         resolved_dns = await resolve_dns(url, session)
         await print_result(resolved_dns)
+        
+
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -41,6 +41,7 @@ def print_whois_info(whois_info):
         result = "====================\n"
         result += colored("  WHOIS Information  \n", 'blue')
         result += "====================\n"
+        result += "\n"
         for key in keys:
             value = whois_dict.get(key, 'N/A')
             if value != 'N/A':

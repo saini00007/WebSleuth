@@ -7,7 +7,7 @@ from statistics import mean
 # ANSI escape codes for colorization
 GREEN = "\033[92m"
 RED = "\033[91m"
-BLUE = "\033[93m"
+BLUE = "\033[34m"
 RESET = "\033[0m"
 
 def convert_timestamp_to_date(timestamp):
@@ -96,10 +96,10 @@ def print_colored_result(url, result):
         print(f"{RED}Skipped: {result['skipped']}{RESET}")
         return
 
-    print(f"{GREEN}\nWayback Data:{RESET}")
+    
     for key, value in result.items():
         print(f"  - {RED}{key}:{RESET} {GREEN}{value}{RESET}")
 
-
+    print("\n")  
 if __name__ == "__main__":
     asyncio.run(main())

@@ -84,3 +84,4 @@ if __name__ == "__main__":
         print_colored_result(result)
     except Exception as e:
         print(f"{Fore.RED}\nError:{Style.RESET_ALL} {e}")
+print("\n")

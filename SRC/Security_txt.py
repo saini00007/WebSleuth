@@ -61,8 +61,8 @@ def fetch_security_txt(base_url, path):
     return None
 
 if __name__ == "__main__":
-    print("====================\n")
-    print(Fore.BLUE + "  Security Text \n" + Style.RESET_ALL)
+    print("====================")
+    print(Fore.BLUE + "  Security Text " + Style.RESET_ALL)
     print("====================\n")
     
     try:

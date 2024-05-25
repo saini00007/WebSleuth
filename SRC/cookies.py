@@ -3,9 +3,9 @@ import asyncio
 import sys
 
 # ANSI escape codes for colorization
-GREEN = "\033[92m"
-RED = "\033[91m"
-BLUE = "\033[93m"
+GREEN = "\033[32m"
+RED = "\033[31m"
+BLUE = "\033[34m"
 RESET = "\033[0m"
 
 async def get_cookie_info(url):
@@ -13,27 +13,36 @@ async def get_cookie_info(url):
         async with session.get(url) as response:
             cookies = response.cookies
 
-            #cookie_info = {}
-            #for cookie in cookies:
-             #   print(type(cookie))  # Add this line to check the type of cookie
-              #  cookie_info[cookie.name] = {
-               #     "Domain": cookie.domain,
-                #    "Path": cookie.path,
-                 #   "Expires": cookie.expires,
-                  #  "Secure": cookie.secure
-                #}
-            return cookies
+           
+
+            cookie_info = {}
+            for key, cookie in cookies.items():
+                cookie_info[key] = {
+                    "Domain": cookie.get("domain"),
+                    "Path": cookie.get("path"),
+                    "Expires": cookie.get("expires"),
+                    "Secure": cookie.get("secure")
+                }
+        
+            return cookie_info
 
 
 async def main():
     url = sys.argv[1]
     
     info = await get_cookie_info(url)
-    for cookie_name, cookie_data in info.items():
+    if not info:
+                print("\n")
+                print("====================")
+                print(BLUE + "Cookies " + RESET)
+                print("====================\n")
+                print(RED +"No cookies found\n" +RESET)
+    else:
+       for cookie_name, cookie_data in info.items():
         print("====================")
         print(BLUE + "Cookies " + RESET)
         print("====================\n")
-        print(f"{GREEN}Cookie: {cookie_name}{RESET}")
+        print(f"{GREEN}Cookie Type: {cookie_name}{RESET}")
         for key, value in cookie_data.items():
             if value:
                 print(f"{key}: {GREEN}{value}{RESET}")

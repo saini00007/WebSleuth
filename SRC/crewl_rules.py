@@ -4,9 +4,9 @@ import asyncio
 import sys
 
 # ANSI escape codes for text formatting
-ANSI_RED = "\033[91m"
-ANSI_GREEN = "\033[92m"
-ANSI_BLUE = "\033[93m"
+ANSI_RED = "\033[31m"
+ANSI_GREEN = "\033[32m"
+ANSI_BLUE = "\033[34m"
 ANSI_BOLD = "\033[1m"
 ANSI_RESET = "\033[0m"
 
@@ -33,16 +33,16 @@ async def get_robots_txt(url, session):
                 crawl_rules.append((user_agent, rule))
 
         # Print crawl rules with style and colors
-        
+        print("====================")
+        print(ANSI_BLUE + "Crawl Rules " + ANSI_RESET)
+        print("====================\n")
         for user_agent, rule in crawl_rules:
-            print("====================")
-            print(ANSI_BLUE + "Crawl Rules " + ANSI_RESET)
-            print("====================\n")
-            print(ANSI_BLUE + "User-Agent:", user_agent + ANSI_RESET)
+            
+            print(ANSI_RED+ "User-Agent:", user_agent + ANSI_RESET)
             if "allow" in rule:
                 print(ANSI_GREEN + "Allow:", rule + ANSI_RESET)
             else:
-                print(ANSI_RED + "Disallow:", rule + ANSI_RESET)
+                print(ANSI_GREEN + "Disallow:", rule + ANSI_RESET)
             print()
 
 async def main():

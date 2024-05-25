@@ -15,13 +15,13 @@ async def get_headers(url):
 def print_colored_headers(headers):
     print ( "====================")
     print(Fore.BLUE + "  Headers " + Style.RESET_ALL)
-    print( "====================")
+    print( "====================\n")
     if headers:
         for key, value in headers.items():
             print(Fore.RED + key + ":" + Style.RESET_ALL + Fore.GREEN + value + Style.RESET_ALL)
     else:
         print("Failed to retrieve headers for the provided URL.")
-
+    print("\n")
 # Example usage
 async def main():
 

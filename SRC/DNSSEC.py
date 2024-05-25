@@ -38,11 +38,11 @@ def print_dns_records(records):
         print(f"{Fore.RED}{dns_type}{Style.RESET_ALL}")
         print(f"{Fore.RED}{dns_type} - Present? {'✅ Yes' if record['isFound'] else '❌ No'}{Style.RESET_ALL}")
         print()
-        print(f"{Fore.BLUE}    Recursion Desired (RD)✅{Style.RESET_ALL}")
-        print(f"{Fore.BLUE}    Recursion Available (RA)✅{Style.RESET_ALL}")
-        print(f"{Fore.BLUE}    TrunCation (TC)❌{Style.RESET_ALL}")
-        print(f"{Fore.BLUE}    Authentic Data (AD) {'✅' if record['flags'] else '❌'}{Style.RESET_ALL}")
-        print(f"{Fore.BLUE}    Checking Disabled (CD)❌{Style.RESET_ALL}")
+        print(f"{Fore.GREEN}    Recursion Desired (RD)✅{Style.RESET_ALL}")
+        print(f"{Fore.GREEN}    Recursion Available (RA)✅{Style.RESET_ALL}")
+        print(f"{Fore.GREEN}    TrunCation (TC)❌{Style.RESET_ALL}")
+        print(f"{Fore.GREEN}    Authentic Data (AD) {'✅' if record['flags'] else '❌'}{Style.RESET_ALL}")
+        print(f"{Fore.GREEN}    Checking Disabled (CD)❌{Style.RESET_ALL}")
         print()
 
 # Example usage

@@ -41,3 +41,4 @@ print("====================\n")
 print(colorize("Open ports Number:", "red"))
 for port in open_ports:
     print(colorize(port, "green"))
+print("\n")  

@@ -34,19 +34,19 @@ def get_ssl_certificate_info(url):
                 print("====================\n")
                 # Extract and print the required information with color highlighting
                 
-                print(f"{Fore.RED}Subject:{Style.RESET_ALL} {x509.get_subject().CN}")
-                print(f"{Fore.RED}Issuer:{Style.RESET_ALL} {x509.get_issuer().CN}")
-                print(f"{Fore.RED}ASN1 Curve:{Style.RESET_ALL} {x509.get_pubkey().type()}")
-                print(f"{Fore.RED}NIST Curve:{Style.RESET_ALL} {x509.get_pubkey().bits()}")
+                print(f"{Fore.RED}Subject:{Style.RESET_ALL} {Fore.GREEN}{x509.get_subject().CN}")
+                print(f"{Fore.RED}Issuer:{Style.RESET_ALL} {Fore.GREEN}{x509.get_issuer().CN}")
+                print(f"{Fore.RED}ASN1 Curve:{Style.RESET_ALL} {Fore.GREEN}{x509.get_pubkey().type()}")
+                print(f"{Fore.RED}NIST Curve:{Style.RESET_ALL}{Fore.GREEN} {x509.get_pubkey().bits()}")
                 
                 expires_date = datetime.strptime(x509.get_notAfter().decode('utf-8'), '%Y%m%d%H%M%SZ')
                 renewed_date = datetime.strptime(x509.get_notBefore().decode('utf-8'), '%Y%m%d%H%M%SZ')
                 
-                print(f"{Fore.RED}Expires:{Style.RESET_ALL} {expires_date.strftime('%d %B %Y')}")
-                print(f"{Fore.RED}Renewed:{Style.RESET_ALL} {renewed_date.strftime('%d %B %Y')}")
+                print(f"{Fore.RED}Expires:{Style.RESET_ALL}{Fore.GREEN}{expires_date.strftime('%d %B %Y')}")
+                print(f"{Fore.RED}Renewed:{Style.RESET_ALL} {Fore.GREEN}{renewed_date.strftime('%d %B %Y')}")
                 
-                print(f"{Fore.RED}Serial Num:{Style.RESET_ALL} {x509.get_serial_number()}")
-                print(f"{Fore.RED}Fingerprint:{Style.RESET_ALL} {x509.digest('sha256').decode('utf-8')}")
+                print(f"{Fore.RED}Serial Num:{Style.RESET_ALL} {Fore.GREEN}{x509.get_serial_number()}")
+                print(f"{Fore.RED}Fingerprint:{Style.RESET_ALL} {Fore.GREEN}{x509.digest('sha256').decode('utf-8')}")
                 
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -56,3 +56,4 @@ if __name__ == "__main__":
     xurl = sys.argv[1]
     #url = check_url(xurl)
     get_ssl_certificate_info(xurl)
+    print ("\n")

@@ -37,3 +37,4 @@ if __name__ == "__main__":
         check_headers(url, headers_to_check)
     except Exception as e:
         print(colorize("\nError:", 'red'), e)
+    print("\n")   

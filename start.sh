@@ -2,24 +2,47 @@
 
 # Function to print "Domain Checker" in a big format with blue color
 print_big_header() {
-    echo -e "\e[34m
- ______   _______  _______  _______ _________ _              _______           _______  _______  _        _______  _______ 
-(  __  \ (  ___  )(       )(  ___  )\__   __/( (    /|      (  ____ \|\     /|(  ____ \(  ____ \| \    /\(  ____ \(  ____ )
-| (  \  )| (   ) || () () || (   ) |   ) (   |  \  ( |      | (    \/| )   ( || (    \/| (    \/|  \  / /| (    \/| (    )|
-| |   ) || |   | || || || || (___) |   | |   |   \ | |      | |      | (___) || (__    | |      |  (_/ / | (__    | (____)|
-| |   | || |   | || |(_)| ||  ___  |   | |   | (\ \) |      | |      |  ___  ||  __)   | |      |   _ (  |  __)   |     __)
-| |   ) || |   | || |   | || (   ) |   | |   | | \   |      | |      | (   ) || (      | |      |  ( \ \ | (      | (\ (   
-| (__/  )| (___) || )   ( || )   ( |___) (___| )  \  |      | (____/\| )   ( || (____/\| (____/\|  /  \ \| (____/\| ) \ \__
-(______/ (_______)|/     \||/     \|\_______/|/    )_)      (_______/|/     \|(_______/(_______/|_/    \/(_______/|/   \__/
-                                                                                                                                                                          
-\e[0m"
-}
+    
+    echo -e "\033[35;5;1m 
+ __          __  _      _____ _            _   _     
+ \ \        / / | |    / ____| |          | | | |    
+  \ \  /\  / /__| |__ | (___ | | ___ _   _| |_| |__  
+   \ \/  \/ / _ \ '_ \ \___ \| |/ _ \ | | | __| '_ \ 
+    \  /\  /  __/ |_) | ___) | |  __/ |_| | |_| | | |
+     \/  \/ \___|_.__/ _____/|_|\___|\__,_|\__|_| |_|
+                                                                              
+                                                                                                                                                                         
+\033[0m"
+echo -e "\033[31;1m
+          __                     __ __        _                       __                      ___       
+|  | _|_ (_ | _   |_|_   .  |  ||_ |__)  | _ (_ _  _ _  _ |_. _  _   / _  _ |_|_  _ _. _  _    | _  _ | 
+|/\|(-|_)__)|(-|_||_| )  .  |/\||__|__)  || )| (_)| |||(_||_|(_)| )  \__)(_||_| )(-| || )(_)   |(_)(_)| 
+                                                                                         _/             
 
+
+                                                                                             
+
+\033[0m"
+
+
+
+echo -e "\033[33;1m[==[[ ->>  Name     :          WebSleuth          <<- ]]==]\033[0m"
+echo
+echo -e "\033[34;1m[==[[ ->>  Telegram :    https://t.me/imnoone07   <<- ]]==]\033[0m"
+echo
+echo -e "\033[35;1m[==[[ ->>  Github   :    github.com/saini00007    <<- ]]==]\033[0m"
+echo
+echo -e "\033[36;1m[==[[ ->>  Author   :           NO_ONE            <<- ]]==]\033[0m"
+echo
+echo -e "\033[37;1m[==[[ ->>  Version  :             1.0             <<- ]]==]\033[0m"
+echo
+echo
+}
 check_url() {
     if curl --output /dev/null --silent --head --fail "$1"; then
         return 0
     else
-        echo -e "\e[91mURL is not reachable. Enter a valid URL or domain name...\e[0m"  # Printing error message in red color
+        echo -e "\e[91m--->  URL is not reachable. Enter a valid URL or domain name...\e[0m"  # Printing error message in red color
         return 1
     fi
 }
@@ -81,41 +104,70 @@ run_python_scripts() {
 
 # Main function
 main() {
-    print_big_header
-   
-    echo -e "\e[33mEnter the URL like 'www.example.com' or https://example.com  :\e[0m" 
-    read url
+
+    while true; do
+        print_big_header
+
+        echo -e "\e[33;1m--->Enter the URL like 'www.example.com' or https://example.com  :\e[0m"
+        read url
+        if [ "$url" = "exit" ]; then
+            echo -e "\e[31;----Exiting...\e[0"
+            exit 0
+        fi
     modified_url=$(add_http "$url")  # Capture the modified URL
     check_url "$modified_url"
     if [ $? -eq 1 ]; then
         exit 1
     fi
-    echo "URL is reachable."
- 
+    
+ echo 
+ echo
       # Rest of the script...
- echo "Choose an option:"
-
-    echo "1. WHO_IS_Info"
-    echo "2. Location_Info"
-    echo "3. SSL_info"
-    echo "4. DNS_Server_Info"
-    echo "5. DNSSEC_Info"
-    echo "6. HTTP_Security_Info"
-    echo "7. Security_txt_Info"
-    echo "8. Firewall_Info"
-    echo "9. Block_Detection_Info"
-    echo "10. HSTS_Info"
-    echo "11. Linked_Pages_Info"
-    echo "12. Archive_Info"
-    echo "13. HeaderS_Info"
-    echo "14. Port_scan_Info"
-    echo "15. Tech_Stack_Info"
-    echo "16. Social_tags_Info"
-    echo "17. Crewl_rules_Info"
-    echo "18. Cookies_Info"
-    echo "19. Carbon_Info"
-    echo "20. Get all Information"
-    echo "21. Exit"
+    echo -e "\e[1;31m ----------Choose an option: ----------\e[0m"
+echo
+echo
+    echo -e "\e[1;32m1. ---> WHO_IS_Info \e[0m"
+    echo 
+    echo -e "\e[1;33m2. ---> Location_Info\e[0m"
+    echo 
+    echo -e "\e[1;34m3. ---> SSL_info\e[0m"
+    echo 
+    echo -e "\e[1;35m4. ---> DNS_Server_Info\e[0m"
+    echo 
+    echo -e "\e[1;36m5. ---> DNSSEC_Info\e[0m"
+    echo 
+    echo -e "\e[1;31m6. ---> HTTP_Security_Info\e[0m"
+    echo 
+    echo -e "\e[1;33m7. ---> Security_txt_Info\e[0m"
+    echo 
+    echo -e "\e[1;33m8. ---> Firewall_Info\e[0m"
+    echo 
+    echo -e "\e[1;34m9. ---> Block_Detection_Info\e[0m"
+    echo 
+    echo -e "\e[1;35m10.--->  HSTS_Info\e[0m"
+    echo 
+    echo -e "\e[1;36m11.--->  Linked_Pages_Info\e[0m"
+    echo 
+    echo -e "\e[1;31m12.--->  Archive_Info\e[0m"
+    echo 
+    echo -e "\e[1;32m13.--->  HeaderS_Info\e[0m"
+    echo 
+    echo -e "\e[1;33m14.--->  Port_scan_Info\e[0m"
+    echo 
+    echo -e "\e[1;34m15.--->  Tech_Stack_Info\e[0m"
+    echo 
+    echo -e "\e[1;35m16.--->  Social_tags_Info\e[0m"
+    echo 
+    echo -e "\e[1;36m17.--->  Crewl_rules_Info\e[0m"
+    echo 
+    echo -e "\e[1;31m18.--->  Cookies_Info\e[0m"
+    echo 
+    echo -e "\e[1;32m19.--->  Carbon_Info\e[0m"
+    echo 
+    echo -e "\e[1;33m20.--->  Get all Information\e[0m"
+    echo 
+    echo -e "\e[1;34m21.--->  Exit\e[0m"
+    echo 
     read choice
     case $choice in
         1) python3 "SRC/who_is.py" "$modified_url";;
@@ -139,8 +191,15 @@ main() {
         19)python3 "SRC/carbon.py" "$modified_url";;
         20) run_python_scripts "$modified_url";;  # Corrected the function call here
         21) echo "Exiting..."; exit;;
-        *) echo "Invalid choice";;
+        *) echo -e "\e[31m---------Invalid choice---------\e[0m";;
     esac
+    echo -e "\e[33;1m--->Do you want to perform another searches action ? (yes/no):\e[0m"
+            read another_action
+            if [ "$another_action" = "no" ]; then
+                break
+            fi
+            
+done
 }
 
 

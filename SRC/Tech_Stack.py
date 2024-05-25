@@ -30,10 +30,12 @@ if __name__ == "__main__":
     http_headers = get_http_headers(url)
     if http_headers:
         web_technologies = identify_web_technologies(http_headers)
-        print("====================\n")
-        print(Fore.BLUE + "  Web Technologies  \n" + Style.RESET_ALL)
+        print("====================")
+        print(Fore.BLUE + "  Web Technologies  " + Style.RESET_ALL)
         print("====================\n")
         for key, value in web_technologies.items():
             print(Fore.RED + f"{key}:" + Fore.GREEN + f" {value}" + Style.RESET_ALL)
+              
     else:
         print("Unable to retrieve HTTP headers.")
+print("\n")  

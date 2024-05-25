@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import re
+
 import sys
 from colorama import Fore, Style, init
 
@@ -56,8 +56,8 @@ def get_metadata(url):
 
 
 def print_colored_metadata(metadata):
-    print ( "====================\n")
-    print(Fore.BLUE + "  Social Tags \n" + Style.RESET_ALL)
+    print ( "====================")
+    print(Fore.BLUE + "  Social Tags " + Style.RESET_ALL)
     print( "====================\n")
     theme_color = metadata.get('themeColor', 'N/A')
     if theme_color != 'N/A' and theme_color is not None:
@@ -69,18 +69,18 @@ def print_colored_metadata(metadata):
         theme_color_ansi = ''
         reset_color = ''
 
-    print("\n{:<15} {:^10} {:<15}".format("Title", ":", str(metadata.get('title', 'N/A'))))
+    print("\n{:<15} {:^10} {:<15}".format(Fore.RED +"Title", ":", Fore.GREEN + str(metadata.get ('title', 'N/A')))+Style.RESET_ALL)
 
-    print("{:<15} {:^10} {:<15}".format("Description", ":", str(metadata.get('description', 'N/A'))))
+    print("{:<15} {:^10} {:<15}".format(Fore.RED +"Description", ":", Fore.GREEN +str(metadata.get('description', 'N/A')))+Style.RESET_ALL)
 
-    print("{:<15} {:^10} {:<15}".format("Keywords", ":", str(metadata.get('keywords', 'N/A'))))
+    print("{:<15} {:^10} {:<15}".format(Fore.RED +"Keywords", ":", Fore.GREEN +str(metadata.get('keywords', 'N/A')))+Style.RESET_ALL)
 
-    print("{:<15} {:^10} {:<15}".format("Canonical URL", ":", str(metadata.get('canonicalUrl', 'N/A'))))
+    print("{:<15} {:^10} {:<15}".format(Fore.RED +"Canonical URL", ":", Fore.GREEN +str(metadata.get('canonicalUrl', 'N/A')))+Style.RESET_ALL)
 
-    print("{:<15} {:^10} {:<15}".format("Theme Color", ":", theme_color_ansi + str(theme_color) + reset_color))
+    print("{:<15} {:^10} {:<15}".format(Fore.RED +"Theme Color", ":", Fore.GREEN +theme_color_ansi + str(theme_color) + reset_color)+Style.RESET_ALL)
 
-    print("{:<15} {:^10} {:<15}".format("Twitter Site", ":", str(metadata.get('twitterSite', 'N/A'))))
-
+    print("{:<15} {:^10} {:<15}".format(Fore.RED +"Twitter Site", ":", Fore.GREEN +str(metadata.get('twitterSite', 'N/A')))+Style.RESET_ALL)
+    print("\n")
 
 if __name__ == "__main__":
     
