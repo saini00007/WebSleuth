@@ -56,9 +56,7 @@ def get_metadata(url):
 
 
 def print_colored_metadata(metadata):
-    print ( "====================")
-    print(Fore.BLUE + "  Social Tags " + Style.RESET_ALL)
-    print( "====================\n")
+   
     theme_color = metadata.get('themeColor', 'N/A')
     if theme_color != 'N/A' and theme_color is not None:
         # Convert the hex color code to its corresponding ANSI color code
@@ -87,7 +85,9 @@ if __name__ == "__main__":
 
     try:
         url = sys.argv[1]
-        
+        print ( "====================")
+        print(Fore.BLUE + "  Social Tags " + Style.RESET_ALL)
+        print( "====================\n")
         metadata = get_metadata(url)
         print_colored_metadata(metadata)
     except Exception as e:
