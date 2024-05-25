@@ -37,7 +37,7 @@ WebSleuth is a powerful open-source OSINT (Open Source Intelligence) tool design
 1. Ensure all prerequisites are met.
 2. Run the start script:
     ```
-    bash start.sh
+    sudo bash start.sh
     ```
 
 
