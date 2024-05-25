@@ -64,7 +64,7 @@ def main():
     try:
         url = sys.argv[1]
         print("====================")
-        print(colorize( "  Server Location ", "blue",))
+        print(colorize( "  Linked Pages ", "blue",))
 
         print("====================\n")
         result = handler(url)
