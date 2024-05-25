@@ -6,6 +6,7 @@ WebSleuth is a powerful open-source OSINT (Open Source Intelligence) tool design
 
 #### Screenshots:
 ![Main Page](screenshots/main_page.png)
+![second Page](screenshots/Second_page.png)
 <!-- Add any additional screenshots here -->
 
 #### Key Features:
