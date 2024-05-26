@@ -14,6 +14,7 @@ async def get_ip_location(ip):
     async with aiohttp.ClientSession() as session:
         async with session.get(f"https://ipapi.co/{ip}/json/") as response:
             data = await response.json()
+            
             return data
 
 def colorize(text, color):
@@ -30,9 +31,9 @@ def print_location_details(loc):
         print("No Data Found....")
     else:
         keys = [
-            'IP Address', 'City', 'Region', 'Country Code', 'Country', 'Continent Code',
-            'Postal Code', 'Latitude', 'Longitude', 'Timezone', 'UTC Offset', 'Country Calling Code',
-            'Currency', 'Currency Name', 'Languages', 'ASN', 'Organization', 'Hostname'
+            'ip','version', 'City', 'Region', 'Country Code', 'Country', 'Continent Code',
+            'postal', 'Latitude', 'Longitude', 'Timezone', 'UTC Offset', 'Country Calling Code',
+            'Currency', 'Currency Name', 'Languages', 'ASN'
         ]
         print("====================")
         print(colorize("  Server Location ", "blue"))

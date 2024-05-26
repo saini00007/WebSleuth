@@ -1,6 +1,7 @@
 import aiohttp
 import sys
 import asyncio
+import re
 
 def colorize(text, color):
     colors = {

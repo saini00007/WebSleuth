@@ -33,12 +33,9 @@ domain = get_domain_from_url(url)
 ip = socket.gethostbyname(domain)
 open_ports = get_open_ports(ip)
 print("====================")
-print(colorize( "  Open_ports ", "blue",))
-
+print(colorize("  Open_ports ", "blue"))
 print("====================\n")
-    
 
 print(colorize("Open ports Number:", "red"))
 for port in open_ports:
-    print(colorize(port, "green"))
-print("\n")  
+    print(colorize(str(port), "green"))

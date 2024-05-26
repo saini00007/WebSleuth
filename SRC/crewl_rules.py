@@ -18,6 +18,10 @@ async def get_robots_txt(url, session):
     robots_url = urljoin(base_url, "robots.txt")
     async with session.get(robots_url) as response:
         if response.status != 200:
+            print("====================")
+            print(ANSI_BLUE + "Crawl Rules " + ANSI_RESET)
+            print("====================\n")
+        
             print("Failed to fetch robots.txt:", response.status)
             return
 
