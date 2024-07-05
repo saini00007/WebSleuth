@@ -15,19 +15,18 @@ WebSleuth is a powerful open-source OSINT (Open Source Intelligence) tool design
 <!-- Add any additional screenshots here -->
 
 #### Key Features:
-- Gather 19 types of information about a web page.
+- Gather 30 types of information about a web page.
 - Open-source and built using Python and Bash for clean and efficient code.
 - Provides a clean and organized output for easy analysis.
 
 #### Prerequisites:
 - Python 3 installed
 - Libraries listed in `requirements.txt` installed
-- Superuser permissions 
 
 #### Installation:
 1. Clone the repository:
     ```
-    git clone https://github.com/your_username/WebSleuth.git
+    git clone https://github.com/saini00007/WebSleuth.git
     ```
 2. Navigate to the project directory:
     ```
