@@ -1,6 +1,6 @@
 
 
-### WebSleuth - Open Source Web Intelligence Tool
+## WebSleuth - Open Source Web Intelligence Tool
 
 WebSleuth is a powerful open-source OSINT (Open Source Intelligence) tool designed to gather comprehensive information about a web page. With WebSleuth, you can quickly retrieve 19 types of information including WHOIS data, SSL information, DNS server details, HTTP security headers, technology stack used, and much more.
 
