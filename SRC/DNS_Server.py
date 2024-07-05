@@ -44,7 +44,7 @@ async def resolve_dns(url, session):
 
 async def print_result(result):
     try:
-        print("====================")
+        print( Style.RESET_ALL + "====================")
         print(Fore.BLUE + "  DNS Servers " + Style.RESET_ALL)
         print("====================\n")
  

@@ -11,8 +11,11 @@ async def get_html_size(url):
                 html_content = await response.text()
                 size_in_bytes = len(html_content.encode('utf-8'))
                 return size_in_bytes
-    except aiohttp.ClientError as e:
-        raise ValueError(f"Error fetching HTML size: {e}")
+    except aiohttp.ClientResponseError as e:
+        if e.status == 403:
+            raise ValueError("Forbidden: You don't have permission to access this resource.")
+        else:
+            raise ValueError(f"Error fetching HTML size: {e}")
 
 async def get_carbon_data(size_in_bytes):
     try:
@@ -38,7 +41,6 @@ async def handler(url):
         raise ValueError(f"Error: {e}")
 
 async def print_carbon_data(data):
-    
     print(Fore.RED + f"{Style.BRIGHT}HTML Initial Size:{Fore.GREEN} {data['statistics']['adjustedBytes']} bytes")
     print(Fore.RED + f"{Style.BRIGHT}CO2 for Initial Load:{Fore.GREEN} {data['statistics']['co2']['grid']['grams']} grams")
     print(Fore.RED + f"{Style.BRIGHT}Energy Usage for Load:{Fore.GREEN} {data['statistics']['energy']:.4f} KWg")
@@ -49,8 +51,12 @@ async def main():
     print(Fore.BLUE + "  Carbon Footprint  " + Style.RESET_ALL)
     print("====================\n")
     url = sys.argv[1]
-    result = await handler(url)
-    await print_carbon_data(result)
+    try:
+        result = await handler(url)
+        await print_carbon_data(result)
+    except ValueError as e:
+        print(Fore.RED + f"Error: {e}")
+    print("\n")
 
 if __name__ == "__main__":
     asyncio.run(main())

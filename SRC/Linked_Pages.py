@@ -34,10 +34,7 @@ def handler(url):
             return {
                 'statusCode': 400,
                 'body': json.dumps({
-                    'skipped': 'No internal or external links found. This may be due to the website being dynamically rendered, '
-                               'using a client-side framework (like React), and without SSR enabled. '
-                               'That would mean that the static HTML returned from the HTTP request doesn\'t contain any meaningful content for analysis. '
-                               'You can rectify this by using a headless browser to render the page instead.'
+                    'skipped': 'No internal or external links found. \n'
                 })
             }
 

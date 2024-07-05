@@ -2,6 +2,7 @@ from scapy.all import *
 from urllib.parse import urlparse
 import socket
 import sys
+import subprocess
 def get_domain_from_url(url):
     parsed_uri = urlparse(url)
     domain = '{uri.netloc}'.format(uri=parsed_uri)
@@ -28,7 +29,9 @@ def colorize(text, color):
     }
     return f"{colors[color]}{text}{colors['reset']}"
 
+
 url = sys.argv[1]
+
 domain = get_domain_from_url(url)
 ip = socket.gethostbyname(domain)
 open_ports = get_open_ports(ip)
@@ -39,3 +42,4 @@ print("====================\n")
 print(colorize("Open ports Number:", "red"))
 for port in open_ports:
     print(colorize(str(port), "green"))
+print("\n")

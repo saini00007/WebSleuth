@@ -50,6 +50,7 @@ async def main():
     ip = socket.gethostbyname(domain)
     loc = await get_ip_location(ip)
     print_location_details(loc)
+    print("\n")
     
     
 

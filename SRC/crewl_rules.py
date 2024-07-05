@@ -55,8 +55,6 @@ async def main():
         await get_robots_txt(url, session)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python filename.py <url>")
-        sys.exit(1)
-    else:
+    
+
         asyncio.run(main())

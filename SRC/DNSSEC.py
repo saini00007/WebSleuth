@@ -30,6 +30,7 @@ async def handler(domain):
 
     for dns_type, result in zip(dns_types, results):
         records[dns_type] = result
+    
 
     return records
 
